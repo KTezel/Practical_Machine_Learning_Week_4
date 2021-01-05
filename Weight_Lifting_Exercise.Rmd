@@ -2,8 +2,8 @@
 title: "WEIGHT LIFTING EXERCISE DATA ANALYSIS"
 author: "Korhan Tezel"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
