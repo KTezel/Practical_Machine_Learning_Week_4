@@ -470,8 +470,8 @@ count(trainData_clean, &quot;classe&quot;)</code></pre>
 ## 4      D 3216
 ## 5      E 3607</code></pre>
 </div>
-<div id="partitioning-the-data" class="section level1">
-<h1>Partitioning the Data</h1>
+<div id="partitioning-the-data-for-cross-validation" class="section level1">
+<h1>Partitioning the Data for <strong>cross-validation</strong></h1>
 <p>For cross-validation, the data is separated into training and test sets with ration 70% and 30% respectively.</p>
 <pre class="r"><code>if(!require(&quot;ggplot2&quot;)) install.packages(&quot;ggplot2&quot;); library(&quot;ggplot2&quot;)
 if(!require(&quot;caret&quot;)) install.packages(&quot;caret&quot;); library(&quot;caret&quot;)
@@ -521,13 +521,13 @@ conf$table; conf$overall[1]</code></pre>
 conf2$table;conf2$overall[1]</code></pre>
 <pre><code>##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1477  278  169  152   43
-##          B   25  379   38  171   77
-##          C  168  482  819  598  299
+##          A 1498  467  156  337   73
+##          B    0    0    0    0    0
+##          C  172  672  870  592  363
 ##          D    0    0    0    0    0
-##          E    4    0    0   43  663</code></pre>
+##          E    4    0    0   35  646</code></pre>
 <pre><code>##  Accuracy 
-## 0.5672048</code></pre>
+## 0.5121495</code></pre>
 <p>Based on this model, <strong>the-out-of-sample error</strong> is approximately 0.59 or 59%.</p>
 </div>
 <div id="gradient-boosting-with-cross-validation" class="section level2">
@@ -539,13 +539,13 @@ conf2$table;conf2$overall[1]</code></pre>
 conf3$table; conf3$overall[1]</code></pre>
 <pre><code>##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1673    8    0    0    0
-##          B    1 1125    4    1    4
-##          C    0    6 1022    9    4
-##          D    0    0    0  953   12
-##          E    0    0    0    1 1062</code></pre>
+##          A 1669    7    0    0    0
+##          B    4 1124    5    1    2
+##          C    0    8 1019    8    1
+##          D    1    0    2  955    8
+##          E    0    0    0    0 1071</code></pre>
 <pre><code>##  Accuracy 
-## 0.9915038</code></pre>
+## 0.9920136</code></pre>
 <p>The <strong>out-of-sample</strong> error is pretty small, 2%.</p>
 </div>
 <div id="final-model" class="section level2">

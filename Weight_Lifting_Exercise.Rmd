@@ -2,8 +2,8 @@
 title: "WEIGHT LIFTING EXERCISE DATA ANALYSIS"
 author: "Korhan Tezel"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
   md_document: default
 ---
 
@@ -64,7 +64,7 @@ if(!require("plyr")) install.packages("plyr"); library("plyr")
 count(trainData_clean, "classe")
 ```
 
-# Partitioning the Data
+# Partitioning the Data for **cross-validation**
 For cross-validation, the data is separated into training and test sets with ration 70% and 30% respectively.
 ```{r partitioning_data, message=FALSE}
 if(!require("ggplot2")) install.packages("ggplot2"); library("ggplot2")
