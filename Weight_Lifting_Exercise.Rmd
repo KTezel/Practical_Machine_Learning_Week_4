@@ -65,6 +65,7 @@ count(trainData_clean, "classe")
 ```
 
 # Partitioning the Data
+For cross-validation, the data is separated into training and test sets with ration 70% and 30% respectively.
 ```{r partitioning_data, message=FALSE}
 if(!require("ggplot2")) install.packages("ggplot2"); library("ggplot2")
 if(!require("caret")) install.packages("caret"); library("caret")
