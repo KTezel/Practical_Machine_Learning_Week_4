@@ -480,8 +480,8 @@ testing &lt;- trainData_clean[-inTraining,]</code></pre>
 </div>
 <div id="building-a-prediction-model" class="section level1">
 <h1>Building a Prediction Model</h1>
-<div id="random-forests" class="section level2">
-<h2>Random Forests</h2>
+<div id="random-forests-with-cross-validation-10-fold" class="section level2">
+<h2>Random Forests with Cross-validation 10-fold</h2>
 <p>Building a model with Random Forests is processor exhaustive; therefore, we will be using parallel processing to increase the performance and shorten the length of processing time. We are using 10-fold Cross-Validation. Step 1: Configure parallel processing</p>
 <pre class="r"><code>library(parallel)
 library(doParallel)
@@ -508,27 +508,29 @@ conf$table; conf$overall[1]</code></pre>
 ##          E    0    0    0    0 1082</code></pre>
 <pre><code>## Accuracy 
 ##        1</code></pre>
+<p>Based on the Random Forest model, <strong>the out-of-sample error</strong> is virtually zero and the model predicts the dependent values in the test data perfectly.</p>
 </div>
 <div id="decisision-tree" class="section level2">
 <h2>Decisision Tree</h2>
 <pre class="r"><code>if(!require(&quot;rattle&quot;)) install.packages(&quot;rattle&quot;); library(&quot;rattle&quot;)</code></pre>
 <pre class="r"><code>fit_rpart &lt;- train(classe ~., method=&quot;rpart&quot;, data=training)</code></pre>
 <pre class="r"><code>pred2 &lt;- predict(fit_rpart, testing)</code></pre>
-<p>According to the confusion matrix, Decision Tree model is not a succesful prediction model.</p>
+<p>According to the confusion matrix, Decision Tree model is not a successful prediction model.</p>
 <pre class="r"><code>conf2 &lt;- confusionMatrix(pred2, as.factor(testing$classe))
 conf2$table;conf2$overall[1]</code></pre>
 <pre><code>##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1510  505  478  423  148
-##          B   35  372   29  173  151
-##          C  126  262  519  368  293
+##          A 1493  463  474  409  146
+##          B   40  403   37  167  152
+##          C  136  273  515  388  297
 ##          D    0    0    0    0    0
-##          E    3    0    0    0  490</code></pre>
+##          E    5    0    0    0  487</code></pre>
 <pre><code>##  Accuracy 
-## 0.4912489</code></pre>
+## 0.4924384</code></pre>
+<p>Based on this model, <strong>the-out-of-sample error</strong> is approximately 0.59 or 59%.</p>
 </div>
-<div id="gradient-boosting" class="section level2">
-<h2>Gradient Boosting</h2>
+<div id="gradient-boosting-with-cross-validation" class="section level2">
+<h2>Gradient Boosting with cross-validation</h2>
 <pre class="r"><code>fit_gbm &lt;- train(classe ~ ., data=training, method=&quot;gbm&quot;, verbose=F, 
     trControl=trainControl(method=&quot;cv&quot;, number=2, allowParallel=T))</code></pre>
 <pre class="r"><code>pred3 &lt;- predict(fit_gbm, testing)</code></pre>
@@ -536,14 +538,28 @@ conf2$table;conf2$overall[1]</code></pre>
 conf3$table; conf3$overall[1]</code></pre>
 <pre><code>##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1671    8    0    0    0
-##          B    2 1125    5    2    2
-##          C    0    6 1018    8    2
-##          D    1    0    2  953   12
-##          E    0    0    1    1 1066</code></pre>
-<pre><code>## Accuracy 
-## 0.991164</code></pre>
-<p>Both gradient boosting and Random Forests are a good predictor models for the test data set.</p>
+##          A 1670    3    0    0    0
+##          B    3 1129    6    1    2
+##          C    0    7 1018    6    2
+##          D    1    0    2  957   10
+##          E    0    0    0    0 1068</code></pre>
+<pre><code>##  Accuracy 
+## 0.9926933</code></pre>
+<p>The <strong>out-of-sample</strong> error is pretty small, 2% and the accuracy with 95% confidence interval 98.3% and 98.9%.</p>
+</div>
+<div id="final-model" class="section level2">
+<h2>Final Model</h2>
+<p>Both gradient boosting and Random Forests are a good predictor models for the test data set. If we use these models on the test sample provided with no classification values, here are the predictions by both models.</p>
+<pre class="r"><code>final_pred_gbm &lt;- predict(fit_gbm, testData_clean)
+final_pred_rf &lt;- predict(fit, testData_clean)</code></pre>
+<p>Predictions by gradient boosting:</p>
+<pre class="r"><code>final_pred_gbm</code></pre>
+<pre><code>##  [1] B A B A A E D B A A B C B A E E A B B B
+## Levels: A B C D E</code></pre>
+<p>Predictions by random forests:</p>
+<pre class="r"><code>final_pred_rf</code></pre>
+<pre><code>##  [1] B A B A A E D B A A B C B A E E A B B B
+## Levels: A B C D E</code></pre>
 </div>
 </div>
 

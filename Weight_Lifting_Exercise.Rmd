@@ -2,8 +2,9 @@
 title: "WEIGHT LIFTING EXERCISE DATA ANALYSIS"
 author: "Korhan Tezel"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
+  md_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -73,7 +74,7 @@ testing <- trainData_clean[-inTraining,]
 ```
 
 # Building a Prediction Model
-## Random Forests
+## Random Forests with Cross-validation 10-fold
 Building a model with Random Forests is processor exhaustive; therefore, we will be using parallel processing to increase the performance and shorten the length of processing time. We are using 10-fold Cross-Validation. 
 Step 1: Configure parallel processing
 ```{r parallel, message=FALSE}
@@ -108,6 +109,7 @@ As it can be from the testing data, the model accurately predicts the classe var
 conf <- confusionMatrix(pred, as.factor(testing$classe))
 conf$table; conf$overall[1]
 ```
+Based on the Random Forest model, **the out-of-sample error** is virtually zero and the model predicts the dependent values in the test data perfectly.
 
 ## Decisision Tree
 ```{r , message=FALSE}
@@ -120,12 +122,14 @@ fit_rpart <- train(classe ~., method="rpart", data=training)
 ```{r pred2}
 pred2 <- predict(fit_rpart, testing)
 ```
-According to the confusion matrix, Decision Tree model is not a succesful prediction model.
+According to the confusion matrix, Decision Tree model is not a successful prediction model.
 ```{r rf_confusion_matrix2}
 conf2 <- confusionMatrix(pred2, as.factor(testing$classe))
 conf2$table;conf2$overall[1]
 ```
-## Gradient Boosting
+Based on this model, **the-out-of-sample error** is approximately 0.59 or 59%.
+
+## Gradient Boosting with cross-validation
 ```{r gbm, cache=TRUE}
 fit_gbm <- train(classe ~ ., data=training, method="gbm", verbose=F, 
     trControl=trainControl(method="cv", number=2, allowParallel=T))
@@ -139,5 +143,21 @@ pred3 <- predict(fit_gbm, testing)
 conf3 <- confusionMatrix(pred3, as.factor(testing$classe))
 conf3$table; conf3$overall[1]
 ```
+The **out-of-sample** error is pretty small, 2%.
 
-Both gradient boosting and Random Forests are a good predictor models for the test data set.
+## Final Model
+Both gradient boosting and Random Forests are a good predictor models for the test data set. If we use these models on the test sample provided with no classification values, here are the predictions by both models.
+
+```{r final_model}
+final_pred_gbm <- predict(fit_gbm, testData_clean)
+final_pred_rf <- predict(fit, testData_clean)
+```
+Predictions by gradient boosting:
+```{r final_prediction_gbm}
+final_pred_gbm
+```
+
+Predictions by random forests:
+```{r final_prediction_rf}
+final_pred_rf
+```
