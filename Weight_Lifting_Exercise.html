@@ -509,7 +509,7 @@ conf$table; conf$overall[1]</code></pre>
 ##          E    0    0    0    0 1082</code></pre>
 <pre><code>## Accuracy 
 ##        1</code></pre>
-<p>Based on the Random Forest model, <strong>the out-of-sample error</strong> is virtually zero and the model predicts the dependent values in the test data perfectly.</p>
+<p>Based on the Random Forest model, <strong>the out-of-sample error</strong> is 0 and the model predicts the dependent values in the test data perfectly.</p>
 </div>
 <div id="decisision-tree" class="section level2">
 <h2>Decisision Tree</h2>
@@ -521,14 +521,14 @@ conf$table; conf$overall[1]</code></pre>
 conf2$table;conf2$overall[1]</code></pre>
 <pre><code>##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1498  467  156  337   73
-##          B    0    0    0    0    0
-##          C  172  672  870  592  363
+##          A 1495  476  491  427  166
+##          B   32  293   17  176   68
+##          C  142  370  518  361  363
 ##          D    0    0    0    0    0
-##          E    4    0    0   35  646</code></pre>
+##          E    5    0    0    0  485</code></pre>
 <pre><code>##  Accuracy 
-## 0.5121495</code></pre>
-<p>Based on this model, <strong>the-out-of-sample error</strong> is approximately 0.59 or 59%.</p>
+## 0.4742566</code></pre>
+<p>Based on this model, <strong>the-out-of-sample error</strong> is approximately 0.5257434.</p>
 </div>
 <div id="gradient-boosting-with-cross-validation" class="section level2">
 <h2>Gradient Boosting with cross-validation</h2>
@@ -539,14 +539,14 @@ conf2$table;conf2$overall[1]</code></pre>
 conf3$table; conf3$overall[1]</code></pre>
 <pre><code>##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1669    7    0    0    0
-##          B    4 1124    5    1    2
-##          C    0    8 1019    8    1
-##          D    1    0    2  955    8
-##          E    0    0    0    0 1071</code></pre>
+##          A 1672    6    0    1    0
+##          B    1 1126    6    0    4
+##          C    0    7 1019    8    3
+##          D    1    0    1  955   12
+##          E    0    0    0    0 1063</code></pre>
 <pre><code>##  Accuracy 
-## 0.9920136</code></pre>
-<p>The <strong>out-of-sample</strong> error is pretty small, 2%.</p>
+## 0.9915038</code></pre>
+<p>The <strong>out-of-sample</strong> error is pretty small, 0.0084962.</p>
 </div>
 <div id="final-model" class="section level2">
 <h2>Final Model</h2>

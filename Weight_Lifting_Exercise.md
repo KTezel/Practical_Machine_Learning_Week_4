@@ -149,9 +149,8 @@ we can use to test our model on.
     ## Accuracy 
     ##        1
 
-Based on the Random Forest model, **the out-of-sample error** is
-virtually zero and the model predicts the dependent values in the test
-data perfectly.
+Based on the Random Forest model, **the out-of-sample error** is 0 and
+the model predicts the dependent values in the test data perfectly.
 
 Decisision Tree
 ---------------
@@ -170,17 +169,17 @@ successful prediction model.
 
     ##           Reference
     ## Prediction    A    B    C    D    E
-    ##          A 1527  476  475  411  150
-    ##          B   26  377   26  179  138
-    ##          C  118  286  525  374  308
+    ##          A 1511  474  466  448  142
+    ##          B   24  386   36  181  147
+    ##          C  133  279  524  335  308
     ##          D    0    0    0    0    0
-    ##          E    3    0    0    0  486
+    ##          E    6    0    0    0  485
 
     ##  Accuracy 
-    ## 0.4953271
+    ## 0.4937978
 
-Based on this model, **the-out-of-sample error** is approximately 0.59
-or 59%.
+Based on this model, **the-out-of-sample error** is approximately
+0.5062022.
 
 Gradient Boosting with cross-validation
 ---------------------------------------
@@ -195,16 +194,16 @@ Gradient Boosting with cross-validation
 
     ##           Reference
     ## Prediction    A    B    C    D    E
-    ##          A 1674    2    0    0    0
-    ##          B    0 1130    3    6    1
-    ##          C    0    7 1020    8    1
-    ##          D    0    0    3  950    4
-    ##          E    0    0    0    0 1076
+    ##          A 1672    5    0    0    0
+    ##          B    2 1127    6    3    3
+    ##          C    0    5 1017   13    0
+    ##          D    0    2    2  948    7
+    ##          E    0    0    1    0 1072
 
     ##  Accuracy 
-    ## 0.9940527
+    ## 0.9916737
 
-The **out-of-sample** error is pretty small, 2%.
+The **out-of-sample** error is pretty small, 0.0083263.
 
 Final Model
 -----------

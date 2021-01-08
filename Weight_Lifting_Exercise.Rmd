@@ -2,9 +2,9 @@
 title: "WEIGHT LIFTING EXERCISE DATA ANALYSIS"
 author: "Korhan Tezel"
 output:
+  md_document: default
   pdf_document: default
   html_document: default
-  md_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -110,7 +110,7 @@ As it can be from the testing data, the model accurately predicts the classe var
 conf <- confusionMatrix(pred, as.factor(testing$classe))
 conf$table; conf$overall[1]
 ```
-Based on the Random Forest model, **the out-of-sample error** is virtually zero and the model predicts the dependent values in the test data perfectly.
+Based on the Random Forest model, **the out-of-sample error** is `r 1-conf$overall[1]` and the model predicts the dependent values in the test data perfectly.
 
 ## Decisision Tree
 ```{r , message=FALSE}
@@ -128,7 +128,7 @@ According to the confusion matrix, Decision Tree model is not a successful predi
 conf2 <- confusionMatrix(pred2, as.factor(testing$classe))
 conf2$table;conf2$overall[1]
 ```
-Based on this model, **the-out-of-sample error** is approximately 0.59 or 59%.
+Based on this model, **the-out-of-sample error** is approximately `r 1-conf2$overall[1]`.
 
 ## Gradient Boosting with cross-validation
 ```{r gbm, cache=TRUE}
@@ -144,7 +144,7 @@ pred3 <- predict(fit_gbm, testing)
 conf3 <- confusionMatrix(pred3, as.factor(testing$classe))
 conf3$table; conf3$overall[1]
 ```
-The **out-of-sample** error is pretty small, 2%.
+The **out-of-sample** error is pretty small, `r 1-conf3$overall[1]`.
 
 ## Final Model
 Both gradient boosting and Random Forests are a good predictor models for the test data set. If we use these models on the test sample provided with no classification values, here are the predictions by both models.
