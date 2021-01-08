@@ -84,8 +84,11 @@ Counting classe frequency.
     ## 4      D 3216
     ## 5      E 3607
 
-Partitioning the Data
-=====================
+Partitioning the Data for **cross-validation**
+==============================================
+
+For cross-validation, the data is separated into training and test sets
+with ration 70% and 30% respectively.
 
     if(!require("ggplot2")) install.packages("ggplot2"); library("ggplot2")
     if(!require("caret")) install.packages("caret"); library("caret")
@@ -146,9 +149,12 @@ we can use to test our model on.
     ## Accuracy 
     ##        1
 
-Based on the Random Forest model, the out-of-sample error is virtually
-zero and the model predicts the test data dependent values perfectly but
-this might be a little overfitting. \#\# Decisision Tree
+Based on the Random Forest model, **the out-of-sample error** is
+virtually zero and the model predicts the dependent values in the test
+data perfectly.
+
+Decisision Tree
+---------------
 
     if(!require("rattle")) install.packages("rattle"); library("rattle")
 
@@ -164,17 +170,20 @@ successful prediction model.
 
     ##           Reference
     ## Prediction    A    B    C    D    E
-    ##          A 1517  474  493  430  151
-    ##          B   27  387   35  173  167
-    ##          C  125  278  498  361  288
+    ##          A 1527  476  475  411  150
+    ##          B   26  377   26  179  138
+    ##          C  118  286  525  374  308
     ##          D    0    0    0    0    0
-    ##          E    5    0    0    0  476
+    ##          E    3    0    0    0  486
 
     ##  Accuracy 
-    ## 0.4890399
+    ## 0.4953271
 
-Based on this model, the out of sample error is approximately 0.59 or
-59%. \#\# Gradient Boosting with cross-validation
+Based on this model, **the-out-of-sample error** is approximately 0.59
+or 59%.
+
+Gradient Boosting with cross-validation
+---------------------------------------
 
     fit_gbm <- train(classe ~ ., data=training, method="gbm", verbose=F, 
         trControl=trainControl(method="cv", number=2, allowParallel=T))
@@ -186,17 +195,16 @@ Based on this model, the out of sample error is approximately 0.59 or
 
     ##           Reference
     ## Prediction    A    B    C    D    E
-    ##          A 1672    3    0    0    0
-    ##          B    2 1121    8    6    2
-    ##          C    0   11 1011   15    2
-    ##          D    0    3    6  942   11
-    ##          E    0    1    1    1 1067
+    ##          A 1674    2    0    0    0
+    ##          B    0 1130    3    6    1
+    ##          C    0    7 1020    8    1
+    ##          D    0    0    3  950    4
+    ##          E    0    0    0    0 1076
 
     ##  Accuracy 
-    ## 0.9877655
+    ## 0.9940527
 
-The out-of-sample error is pretty small, 2% and the accuracy with 95%
-confidence interval of 98.3% and 98.9%.
+The **out-of-sample** error is pretty small, 2%.
 
 Final Model
 -----------
@@ -206,9 +214,19 @@ for the test data set. If we use these models on the test sample
 provided with no classification values, here are the predictions by both
 models.
 
-final\_pred\_gbm &lt;- predict(fit\_gbm, testData\_clean)
-final\_pred\_rf &lt;- predict(fit, testData\_clean)
+    final_pred_gbm <- predict(fit_gbm, testData_clean)
+    final_pred_rf <- predict(fit, testData_clean)
 
-Predictions by gradient boosting: final\_pred\_gbm
+Predictions by gradient boosting:
 
-Predictions by random forests: final\_pred\_rf
+    final_pred_gbm
+
+    ##  [1] B A B A A E D B A A B C B A E E A B B B
+    ## Levels: A B C D E
+
+Predictions by random forests:
+
+    final_pred_rf
+
+    ##  [1] B A B A A E D B A A B C B A E E A B B B
+    ## Levels: A B C D E
